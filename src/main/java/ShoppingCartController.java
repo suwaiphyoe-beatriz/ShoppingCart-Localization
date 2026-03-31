@@ -18,7 +18,6 @@ public class ShoppingCartController {
     public void initialize() {
         languageSelector.getItems().addAll("English", "Finnish", "Swedish", "Japanese", "Arabic");
 
-        // FIX: Set the ComboBox to show the currently active language
         String currentLang = Main.getInstance().getBundle().getLocale().getDisplayLanguage(Locale.ENGLISH);
         if (languageSelector.getItems().contains(currentLang)) {
             languageSelector.setValue(currentLang);
