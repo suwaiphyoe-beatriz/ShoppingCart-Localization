@@ -13,5 +13,5 @@ WORKDIR /app
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
 
-COPY --from=build /app/target/shopping-cart.jar app.jar
+COPY --from=build /app/target/shopping-cartUI.jar app.jar
 CMD ["java", "-Dfile.encoding=UTF-8", "-jar", "app.jar"]

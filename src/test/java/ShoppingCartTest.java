@@ -8,7 +8,7 @@ public class ShoppingCartTest {
     @Test
     public void testItemTotal() {
         double result = ShoppingCart.calculateItemTotal(10.0, 2);
-        assertEquals(20.0, result);
+        assertEquals(20.0, result, 0.001);
     }
 
     @Test

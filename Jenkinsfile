@@ -7,13 +7,13 @@ pipeline {
     environment {
         PATH = "/usr/local/bin:${env.PATH}"
         DOCKER_CREDS_ID = 'docker_hub' 
-        DOCKER_REPO = 'suph03/shopping-cart'
+        DOCKER_REPO = 'suph03/shopping-cartUI'
         DOCKER_TAG = 'latest'
     }
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/suwaiphyoe-beatriz/ShoppingCart.git'
+                git branch: 'main', url: 'https://github.com/suwaiphyoe-beatriz/ShoppingCartUI.git'
             }
         }
         stage('Build') {
@@ -44,7 +44,7 @@ pipeline {
                                  passwordVariable: 'DOCKER_PASS')]) {
                     
                     sh 'echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin'
-                    sh 'docker push suph03/shopping-cart:latest'
+                    sh 'docker push suph03/shopping-cartUI:latest'
                 }
             }
         }

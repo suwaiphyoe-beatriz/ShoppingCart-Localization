@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="8" alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ShoppingCartController">
+    <padding>
+        <Insets top="10" right="15" bottom="10" left="15"/>
+    </padding>
+
+    <Label text="%select_lang" />
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <ComboBox fx:id="languageSelector" prefWidth="120"/>
+        <Button text="%confirm_lang" onAction="#handleLanguageChange" />
+    </HBox>
+
+    <Separator />
+
+    <VBox fx:id="step1Box" spacing="8">
+        <Label text="%enter_items" />
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <TextField fx:id="numItemsField" promptText="%num_items_prompt" prefWidth="120" />
+            <Button text="%enter_items_btn" onAction="#handleStartInput" />
+        </HBox>
+    </VBox>
+
+    <VBox fx:id="step2Box" spacing="5" visible="false" managed="false">
+        <Separator />
+        <Label fx:id="currentItemLabel" style="-fx-font-weight: bold;" />
+        <Label text="%enter_price" />
+        <TextField fx:id="priceField" maxWidth="150" />
+        <Label text="%enter_quantity" />
+        <TextField fx:id="quantityField" maxWidth="150" />
+        <Button fx:id="nextButton" text="%calculate" onAction="#handleNextItem" />
+    </VBox>
+
+    <Separator />
+    <Label fx:id="overallTotalLabel" text="%total_cost" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+    <Button text="%reset" onAction="#handleReset" />
+</VBox>
