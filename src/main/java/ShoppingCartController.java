@@ -115,7 +115,7 @@ public class ShoppingCartController {
             double price = Double.parseDouble(priceField.getText());
             int qty = Integer.parseInt(quantityField.getText());
 
-            double subtotal = price * qty;
+            double subtotal = ShoppingCart.calculateItemTotal(price, qty);
             runningTotal += subtotal;
 
             cartItems.add(new CartItem(currentItemIndex, price, qty, subtotal));
