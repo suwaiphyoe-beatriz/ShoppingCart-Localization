@@ -47,10 +47,10 @@ public class Main extends Application {
             ShoppingCartController controller = loader.getController();
 
             controller.setStrings(strings);
-            controller.setSelectedLanguage(language);   // ✅ IMPORTANT FIX
-            controller.applyLanguage();                 // ✅ refresh labels
+            controller.setSelectedLanguage(language);
+            controller.applyLanguage();
 
-            stage.setTitle("Shopping Cart");
+            stage.setTitle("Su Wai Phyoe-Shopping Cart");
             stage.setScene(new Scene(root, 400, 500));
 
         } catch (Exception e) {
