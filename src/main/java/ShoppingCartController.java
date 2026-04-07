@@ -1,29 +1,69 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+
 import java.util.*;
 
 public class ShoppingCartController {
+
     @FXML private ComboBox<String> languageSelector;
     @FXML private VBox step1Box, step2Box;
     @FXML private TextField numItemsField, priceField, quantityField;
-    @FXML private Label currentItemLabel, overallTotalLabel;
-    @FXML private Button nextButton;
+    @FXML private Label currentItemLabel, overallTotalLabel,selectLangLabel, enterItemsLabel, priceLabel, quantityLabel;
+    @FXML private Button nextButton, confirmLangButton, startButton;
+
+    private Map<String, String> strings;
 
     private int totalItemsToInput = 0;
     private int currentItemIndex = 1;
     private double runningTotal = 0;
 
+    private List<CartItem> cartItems = new ArrayList<>();
+    private String selectedLanguage = "en";
+
+    public void setStrings(Map<String, String> strings) {
+        this.strings = strings;
+    }
+
+    public void setSelectedLanguage(String lang) {
+        this.selectedLanguage = lang;
+
+        switch (lang) {
+            case "fi" -> languageSelector.setValue("Finnish");
+            case "sv" -> languageSelector.setValue("Swedish");
+            case "ja" -> languageSelector.setValue("Japanese");
+            case "ar" -> languageSelector.setValue("Arabic");
+            default -> languageSelector.setValue("English");
+        }
+    }
+
+    public void applyLanguage() {
+        if (strings == null) return;
+
+        // Labels
+        selectLangLabel.setText(strings.getOrDefault("select_language", "Select Language"));
+        enterItemsLabel.setText(strings.getOrDefault("enter_num_items", "Enter number of items"));
+        priceLabel.setText(strings.getOrDefault("price", "Enter price"));
+        quantityLabel.setText(strings.getOrDefault("quantity", "Enter quantity"));
+        overallTotalLabel.setText(strings.getOrDefault("total_cost", "Total cost"));
+
+        // Buttons
+        confirmLangButton.setText(strings.getOrDefault("confirm_language", "Confirm Language"));
+        startButton.setText(strings.getOrDefault("start", "Start"));
+
+        // Logic-dependent button text
+        if (currentItemIndex >= totalItemsToInput && totalItemsToInput > 0) {
+            nextButton.setText(strings.getOrDefault("calculate", "Calculate"));
+        } else {
+            nextButton.setText(strings.getOrDefault("next_item", "Next Item"));
+        }
+    }
+
     @FXML
     public void initialize() {
-        languageSelector.getItems().addAll("English", "Finnish", "Swedish", "Japanese", "Arabic");
-
-        String currentLang = Main.getInstance().getBundle().getLocale().getDisplayLanguage(Locale.ENGLISH);
-        if (languageSelector.getItems().contains(currentLang)) {
-            languageSelector.setValue(currentLang);
-        } else {
-            languageSelector.getSelectionModel().selectFirst();
-        }
+        languageSelector.getItems().addAll(
+                "English", "Finnish", "Swedish", "Japanese", "Arabic"
+        );
     }
 
     @FXML
@@ -38,6 +78,7 @@ public class ShoppingCartController {
             case "Arabic" -> new Locale("ar", "AR");
             default -> new Locale("en", "US");
         };
+
         Main.getInstance().reloadView(locale);
     }
 
@@ -45,6 +86,7 @@ public class ShoppingCartController {
     private void handleStartInput() {
         try {
             totalItemsToInput = Integer.parseInt(numItemsField.getText());
+
             if (totalItemsToInput > 0) {
                 step1Box.setVisible(false);
                 step1Box.setManaged(false);
@@ -53,12 +95,13 @@ public class ShoppingCartController {
 
                 currentItemIndex = 1;
                 runningTotal = 0;
+                cartItems.clear();
                 updateItemLabel();
 
                 if (totalItemsToInput == 1) {
-                    nextButton.setText(Main.getInstance().getBundle().getString("calculate"));
+                    nextButton.setText(strings.get("calculate"));
                 } else {
-                    nextButton.setText("Next Item");
+                    nextButton.setText(strings.get("next_item"));
                 }
             }
         } catch (Exception e) {
@@ -71,29 +114,52 @@ public class ShoppingCartController {
         try {
             double price = Double.parseDouble(priceField.getText());
             int qty = Integer.parseInt(quantityField.getText());
-            runningTotal += (price * qty);
+
+            double subtotal = price * qty;
+            runningTotal += subtotal;
+
+            cartItems.add(new CartItem(currentItemIndex, price, qty, subtotal));
 
             if (currentItemIndex < totalItemsToInput) {
                 currentItemIndex++;
                 updateItemLabel();
+
                 priceField.clear();
                 quantityField.clear();
 
                 if (currentItemIndex == totalItemsToInput) {
-                    nextButton.setText(Main.getInstance().getBundle().getString("calculate"));
+                    nextButton.setText(strings.get("calculate"));
                 }
+
             } else {
-                String label = Main.getInstance().getBundle().getString("total_cost");
+                String label = strings.get("total_cost");
                 overallTotalLabel.setText(label + " " + String.format("%.2f", runningTotal));
+
+                CartService cartService = new CartService();
+
+                int cartId = cartService.saveCart(totalItemsToInput, runningTotal, selectedLanguage);
+
+                for (CartItem item : cartItems) {
+                    cartService.saveCartItem(
+                            cartId,
+                            item.getItemNumber(),
+                            item.getPrice(),
+                            item.getQuantity(),
+                            item.getSubtotal()
+                    );
+                }
+
                 nextButton.setDisable(true);
             }
+
         } catch (Exception e) {
             priceField.setText("Error");
         }
     }
 
     private void updateItemLabel() {
-        currentItemLabel.setText("Item " + currentItemIndex + " / " + totalItemsToInput);
+        String itemWord = strings.getOrDefault("item", "Item");
+        currentItemLabel.setText(itemWord + " " + currentItemIndex + " / " + totalItemsToInput);
     }
 
     @FXML
@@ -101,14 +167,21 @@ public class ShoppingCartController {
         runningTotal = 0;
         currentItemIndex = 1;
         totalItemsToInput = 0;
+
+        cartItems.clear();
+
         numItemsField.clear();
         priceField.clear();
         quantityField.clear();
-        overallTotalLabel.setText(Main.getInstance().getBundle().getString("total_cost"));
+
+        overallTotalLabel.setText(strings.get("total_cost"));
+
         nextButton.setDisable(false);
-        nextButton.setText("Next Item");
+        nextButton.setText(strings.get("next_item"));
+
         step1Box.setVisible(true);
         step1Box.setManaged(true);
+
         step2Box.setVisible(false);
         step2Box.setManaged(false);
     }

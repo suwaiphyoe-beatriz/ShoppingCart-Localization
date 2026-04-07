@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="791127f7-4afd-459c-ad83-fc11e2083f6b" name="Changes" comment="Shopping cart exercise">
-      <change beforePath="$PROJECT_DIR$/src/main/resources/MessagesBundle_ja_JP.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/MessagesBundle_ja_JP.properties" afterDir="false" />
+    <list default="true" id="791127f7-4afd-459c-ad83-fc11e2083f6b" name="Changes" comment="JavaFX Shopping Cart with Localization">
+      <change afterPath="$PROJECT_DIR$/src/main/java/CartItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/CartService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DatabaseConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/LocalizationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ShoppingCartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ShoppingCartController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,6 +21,8 @@
   <component name="CopilotPersistence">
     <persistenceIdMap>
       <entry key="_/Users/beatriz/Documents/ShoppingCart" value="3BNvCb45xmuVgDMtV7dDS0NDPts" />
+      <entry key="_/Users/beatriz/Documents/ShoppingCartUI" value="3BilZDxL4kN1ZbE0LExa7WTISCd" />
+      <entry key="_/Users/beatriz/Documents/ShoppingCartUI localization" value="3C1gWMdfxsLapya37LloQGR3rXp" />
     </persistenceIdMap>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -35,7 +43,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/suwaiphyoe-beatriz/ShoppingCart.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/suwaiphyoe-beatriz/ShoppingCartUI.git&quot;,
     &quot;accountId&quot;: &quot;248f5ec6-3e0f-4aed-bcd9-81eaef0e611b&quot;
   }
 }</component>
@@ -49,36 +57,46 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.executor": "Run",
     "Application.ShoppingCart.executor": "Run",
+    "Application.Unnamed.executor": "Run",
     "JUnit.ShoppingCartTest.executor": "Run",
+    "Maven.shoppingcart [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/beatriz/Documents/ShoppingCart",
+    "last_opened_file_path": "/Users/beatriz/Documents/ShoppingCartUI localization",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "File.Encoding",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.23520249",
+    "settings.editor.selected.configurable": "project.propVCSSupport.Mappings",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="shoppingcart" />
+      <option name="VM_PARAMETERS" value="--module-path $MAVEN_REPOSITORY$/org/openjfx/ --add-modules javafx.controls,javafx.fxml" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <method v="2" />
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="shoppingcart" />
+      <option name="VM_PARAMETERS" value="--module-path $MAVEN_REPOSITORY$/org/openjfx/ --add-modules javafx.controls,javafx.fxml" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
   </component>
   <component name="SharedIndexes">
@@ -99,6 +117,10 @@
       <workItem from="1774342216799" duration="3025000" />
       <workItem from="1774355193202" duration="4199000" />
       <workItem from="1774361826188" duration="549000" />
+      <workItem from="1774362856239" duration="924000" />
+      <workItem from="1774979825928" duration="7497000" />
+      <workItem from="1775037998906" duration="1013000" />
+      <workItem from="1775558521391" duration="410000" />
     </task>
     <task id="LOCAL-00001" summary="Shopping cart exercise">
       <option name="closed" value="true" />
@@ -140,7 +162,31 @@
       <option name="project" value="LOCAL" />
       <updated>1774361526824</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Shopping cart exercise">
+      <option name="closed" value="true" />
+      <created>1774362992481</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1774362992481</updated>
+    </task>
+    <task id="LOCAL-00007" summary="JavaFX Shopping Cart with Localization">
+      <option name="closed" value="true" />
+      <created>1774985405187</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1774985405187</updated>
+    </task>
+    <task id="LOCAL-00008" summary="JavaFX Shopping Cart with Localization">
+      <option name="closed" value="true" />
+      <created>1774985604231</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1774985604231</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -159,7 +205,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Shopping cart exercise" />
-    <option name="LAST_COMMIT_MESSAGE" value="Shopping cart exercise" />
+    <MESSAGE value="JavaFX Shopping Cart with Localization" />
+    <option name="LAST_COMMIT_MESSAGE" value="JavaFX Shopping Cart with Localization" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

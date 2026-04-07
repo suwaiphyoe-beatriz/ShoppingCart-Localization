@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="shopping_cart_localization@localhost">
+  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.53">
+    <root id="1">
+      <DefaultAuthPlugin>mysql_native_password</DefaultAuthPlugin>
+      <DefaultCasing>mixed/mixed</DefaultCasing>
+      <DefaultEngine>InnoDB</DefaultEngine>
+      <ServerVersion>11.6.2</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="information_schema">
+      <CollationName>utf8mb3_general_ci</CollationName>
+    </schema>
+    <schema id="3" parent="1" name="music_lesson_db">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+    <schema id="4" parent="1" name="music_course_platform">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+    <schema id="5" parent="1" name="airport_data">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+    <schema id="6" parent="1" name="test">
+      <CollationName>latin1_swedish_ci</CollationName>
+    </schema>
+    <schema id="7" parent="1" name="currency_converter">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+    <schema id="8" parent="1" name="shopping_cart_localization">
+      <Current>1</Current>
+      <CollationName>utf8mb4_unicode_ci</CollationName>
+    </schema>
+    <schema id="9" parent="1" name="duckburg">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+    <schema id="10" parent="1" name="pandemic">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+    <schema id="11" parent="1" name="flight_game">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+    <schema id="12" parent="1" name="sys">
+      <CollationName>utf8mb3_general_ci</CollationName>
+    </schema>
+    <schema id="13" parent="1" name="calc_data">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+    <schema id="14" parent="1" name="mysql">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+    <schema id="15" parent="1" name="airport">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+    <schema id="16" parent="1" name="performance_schema">
+      <CollationName>utf8mb3_general_ci</CollationName>
+    </schema>
+    <schema id="17" parent="1" name="cloud_simulation">
+      <CollationName>utf8mb4_unicode_ci</CollationName>
+    </schema>
+    <schema id="18" parent="1" name="airports">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+  </database-model>
+</dataSource>
