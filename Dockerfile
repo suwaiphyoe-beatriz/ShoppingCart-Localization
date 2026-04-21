@@ -7,17 +7,24 @@ ENV JAVA_TOOL_OPTIONS="-Djava.awt.headless=false"
 RUN apt-get update && \
     apt-get install -y wget unzip \
     libgtk-3-0 libgbm1 libx11-6 \
-    libgl1-mesa-dri \
+    libgl1-mesa-dri libgl1-mesa-glx \
+    libglu1-mesa \
     xauth x11-apps && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN wget https://download2.gluonhq.com/openjfx/21/openjfx-21_linux-x64_bin-sdk.zip \
+RUN wget https://download2.gluonhq.com/openjfx/21/openjfx-21_linux-aarch64_bin-sdk.zip \
     -O /tmp/openjfx.zip && \
     unzip /tmp/openjfx.zip -d /opt && \
     rm /tmp/openjfx.zip
 
 WORKDIR /app
-
 COPY target/shopping-cart.jar app.jar
 
-CMD ["java","--module-path","/opt/javafx-sdk-21/lib","--add-modules","javafx.controls,javafx.fxml","-Djava.library.path=/opt/javafx-sdk-21/lib","-Dprism.order=sw","-Dprism.text=t2k","-Djavafx.platform=Monocle","-Dmonocle.platform=X11","-Djava.awt.headless=false","-jar","app.jar"]
+CMD ["java", 
+     "--module-path", "/opt/javafx-sdk-21/lib", 
+     "--add-modules", "javafx.controls,javafx.fxml", 
+     "-Djava.library.path=/opt/javafx-sdk-21/lib", 
+     "-Dprism.order=sw", 
+     "-Dprism.text=t2k", 
+     "-Djava.awt.headless=false", 
+     "-jar", "app.jar"]
