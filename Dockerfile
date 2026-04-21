@@ -1,17 +1,29 @@
-# Build stage
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+FROM eclipse-temurin:21-jdk
+
+ENV DISPLAY=host.docker.internal:0.0
+ENV LIBGL_ALWAYS_SOFTWARE=1
+ENV JAVA_TOOL_OPTIONS="-Djava.awt.headless=false"
+
+RUN apt-get update && \
+    apt-get install -y wget unzip \
+    libgtk-3-0 libgbm1 libx11-6 \
+    libgl1-mesa-dri \
+    xauth x11-apps && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN wget https://download2.gluonhq.com/openjfx/21/openjfx-21_linux-x64_bin-sdk.zip \
+    -O /tmp/openjfx.zip && \
+    unzip /tmp/openjfx.zip -d /opt && \
+    rm /tmp/openjfx.zip
+
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-RUN mvn clean package -DskipTests
 
-# Run stage
-FROM eclipse-temurin:17-jre
-WORKDIR /app
+COPY target/shopping-cart.jar app.jar
 
-ENV LANG=C.UTF-8
-ENV LC_ALL=C.UTF-8
-
-COPY --from=build /app/target/shopping-cart.jar app.jar
-
-CMD ["java", "-Dfile.encoding=UTF-8", "-jar", "app.jar"]
+CMD ["java",
+     "--module-path", "/opt/javafx-sdk-21/lib",
+     "--add-modules", "javafx.controls,javafx.fxml",
+     "-Djava.library.path=/opt/javafx-sdk-21/lib",
+     "-Dprism.order=sw",
+     "-Djava.awt.headless=false",
+     "-jar", "app.jar"]
