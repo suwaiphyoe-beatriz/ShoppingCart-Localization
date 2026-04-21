@@ -7,7 +7,8 @@ ENV JAVA_TOOL_OPTIONS="-Djava.awt.headless=false"
 RUN apt-get update && \
     apt-get install -y wget unzip \
     libgtk-3-0 libgbm1 libx11-6 \
-    libgl1-mesa-dri libgl1-mesa-glx \
+    libgl1-mesa-dri \
+    libgl1 \
     libglu1-mesa \
     xauth x11-apps && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
