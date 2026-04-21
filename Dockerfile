@@ -20,4 +20,15 @@ WORKDIR /app
 
 COPY target/shopping-cart.jar app.jar
 
-CMD ["java","--module-path","/opt/javafx-sdk-21/lib","--add-modules","javafx.controls,javafx.fxml","-Djava.library.path=/opt/javafx-sdk-21/lib","-Dprism.order=sw","-Djava.awt.headless=false","-jar","app.jar"]
+CMD [
+  "java",
+  "--module-path","/opt/javafx-sdk-21/lib",
+  "--add-modules","javafx.controls,javafx.fxml",
+  "-Djava.library.path=/opt/javafx-sdk-21/lib",
+  "-Dprism.order=sw",
+  "-Dprism.text=t2k",
+  "-Djavafx.platform=Monocle",
+  "-Dmonocle.platform=X11",
+  "-Djava.awt.headless=false",
+  "-jar","app.jar"
+]
