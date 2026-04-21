@@ -20,11 +20,11 @@ RUN wget https://download2.gluonhq.com/openjfx/21/openjfx-21_linux-aarch64_bin-s
 WORKDIR /app
 COPY target/shopping-cart.jar app.jar
 
-CMD ["java", 
-     "--module-path", "/opt/javafx-sdk-21/lib", 
-     "--add-modules", "javafx.controls,javafx.fxml", 
-     "-Djava.library.path=/opt/javafx-sdk-21/lib", 
-     "-Dprism.order=sw", 
-     "-Dprism.text=t2k", 
-     "-Djava.awt.headless=false", 
+CMD ["java", \
+     "--module-path", "/opt/javafx-sdk-21/lib", \
+     "--add-modules", "javafx.controls,javafx.fxml", \
+     "-Djava.library.path=/opt/javafx-sdk-21/lib", \
+     "-Dprism.order=sw", \
+     "-Dprism.text=t2k", \
+     "-Djava.awt.headless=false", \
      "-jar", "app.jar"]
